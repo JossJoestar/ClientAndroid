@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:id="@+id/editTextNombre"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="30mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Apellido Paterno"
+                android:id="@+id/editTextApellidoPaterno"/>
+            <EditText
+                android:layout_width="30mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Apellido Materno"
+                android:id="@+id/editTextApellidoMaterno"/>
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo"
+            android:id="@+id/editTextCorreo"
+            android:inputType="textEmailAddress"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnSaveOrEdit"
+                android:layout_width="20mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="2.5mm"
+                android:layout_marginLeft="2.5mm"
+                android:text="Guardar"
+                app:backgroundTint="#00E676" />
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="20mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="2.5mm"
+                android:layout_marginLeft="2.5mm"
+                android:text="Eliminar"
+                app:backgroundTint="#00E676" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
