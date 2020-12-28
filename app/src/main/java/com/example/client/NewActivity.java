@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.client.Config.Config;
@@ -40,7 +41,6 @@ public class NewActivity extends AppCompatActivity {
         edtApellidoM = findViewById(R.id.editTextApellidoMaterno);
         edtCorreo = findViewById(R.id.editTextCorreo);
         idEmpleado = getIntent().getExtras().getInt("idEmpleado");
-
         if(idEmpleado != 0)
         {
             isNew = false;
@@ -50,21 +50,13 @@ public class NewActivity extends AppCompatActivity {
             edtApellidoM.setText(emp.getApellidoMaterno());
             edtCorreo.setText(emp.getCorreo());
             btnDelete = findViewById(R.id.btnDelete);
+            btnDelete.setVisibility(View.VISIBLE);
             btnDelete.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(NewActivity.this);
-                            builder.setMessage("¿Seguro de querer eliminarlo?")
-                                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            deleteData(idEmpleado);
-                                        }
-                                    })
-                                    .setNegativeButton("No", null);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
+                            deleteData(idEmpleado);
+
                         }
                     }
             );
@@ -78,7 +70,6 @@ public class NewActivity extends AppCompatActivity {
                 empleado.setApellidoPaterno(edtApellidoP.getText().toString());
                 empleado.setApellidoMaterno(edtApellidoM.getText().toString());
                 empleado.setCorreo(edtCorreo.getText().toString());
-
                 if(isNew) {
                     if (validateData(
                             edtNombre.getText().toString().trim(),
@@ -145,6 +136,21 @@ public class NewActivity extends AppCompatActivity {
         });
     }
     private void deleteData(int id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewActivity.this);
+        builder.setMessage("¿Seguro de querer eliminarlo?")
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteCall(id);
+                    }
+                })
+                .setNegativeButton("No", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteCall(int id)
+    {
         Call<Integer> empleCall = service.deleteEmpelado(id);
         empleCall.enqueue(new Callback<Integer>() {
             @Override

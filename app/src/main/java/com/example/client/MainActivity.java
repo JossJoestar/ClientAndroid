@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.client.Adapters.AdapterEmpleados;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private AdapterEmpleados adapterEmpleados;
     private APIService service = Config.getRetrofit().create(APIService.class);
     private Button btnNew, btnEdit, btnDelete;
+    ProgressBar pgsBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        pgsBar = (ProgressBar)findViewById(R.id.pBar);
+        pgsBar.setVisibility(View.VISIBLE);
         getPublicaciones();
     }
     private void getPublicaciones()
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     adapterEmpleados = new AdapterEmpleados(getApplicationContext(), response.body());
                     lv.setAdapter(adapterEmpleados);
+                    pgsBar.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        pgsBar.setVisibility(View.VISIBLE);
         super.onResume();
         getPublicaciones();
     }
